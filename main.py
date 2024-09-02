@@ -3,6 +3,14 @@ import random
 import math
 import time
 
+def draw_firework_launch(turtle_obj, x, y, launch_height):
+    turtle_obj.penup()
+    turtle_obj.goto(x, y)
+    turtle_obj.pendown()
+    turtle_obj.color("white")
+    turtle_obj.goto(x, y + launch_height)
+    return x, y + launch_height
+
 def draw_fireworks(turtle_obj, x, y):
     turtle_obj.penup()
     turtle_obj.goto(x, y)
@@ -105,8 +113,15 @@ right_firework_turtle.hideturtle()
 while True:
     left_firework_turtle.clear()  # Xóa các tia pháo hoa cũ bên trái
     right_firework_turtle.clear()  # Xóa các tia pháo hoa cũ bên phải
-    draw_fireworks(left_firework_turtle, -300, 50)  # Pháo hoa bên trái
-    draw_fireworks(right_firework_turtle, 300, 50)   # Pháo hoa bên phải
+    
+    # Bắn pháo hoa từ dưới lên
+    left_x, left_y = draw_firework_launch(left_firework_turtle, -300, -200, random.randint(50, 150))
+    right_x, right_y = draw_firework_launch(right_firework_turtle, 300, -200, random.randint(50, 150))
+    
+    # Tạo hiệu ứng nổ pháo hoa
+    draw_fireworks(left_firework_turtle, left_x, left_y)  # Pháo hoa bên trái
+    draw_fireworks(right_firework_turtle, right_x, right_y)  # Pháo hoa bên phải
+    
     screen.update()
     time.sleep(0.5)  # Độ trễ giữa các lần nổ (0.5 giây)
 
